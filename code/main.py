@@ -11,7 +11,7 @@ import plotly.figure_factory as ff
 
 
 # set title of app
-st.title('Predicting the Probability of Glaucoma Pathology Using a CNN')
+st.title('Predicting the Probability of Glaucoma Pathology Using a Convolutional Neural Network')
 
 # establish pages
 page = st.sidebar.selectbox(
@@ -28,7 +28,7 @@ if page == 'About':
 if page == 'Make a prediction':
     # set up file uploader 
     st.subheader('Upload an image of the retina using the box below: ')
-    uploaded_file = st.file_uploader(label='Choose an image file of the retina to run through the Convolutional Neural Network')
+    uploaded_file = st.file_uploader(label='')
     
     if uploaded_file is not None:
         # preprocess image
