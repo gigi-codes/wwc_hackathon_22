@@ -21,19 +21,67 @@ with st.sidebar:
     st.image('../data/test_images/LA_left_eye.jpg', width=300)    
     page = st.sidebar.selectbox(
         'Select a page:',
-        ('Home', 
-         'About',
+        ('About Glaucoma',
+         'Data Analysis and Modeling',
          'Make a prediction')
     )
 
 # -------------------------------------------------------------------------------------------------------
-# if page is 'About' -------------------------------------------------------------------------------------
-if page == 'About':
+# if page is 'Home' -------------------------------------------------------------------------------------    
+if page=='About Glaucoma':
     
+    with st.sidebar:
+        st.markdown("[What is Glaucoma?](#about-glaucoma)", unsafe_allow_html=True)
+        st.markdown("[Anatomy of the Eye](#anatomy-of-the-eye)", unsafe_allow_html=True)
+        st.markdown("[The Optic Disc and Glaucoma](#the-optic-disc-and-glaucoma)", unsafe_allow_html=True)
+        
+    ## DESCRIPTION OF THE DISEASE
+    
+    st.header('What is Glaucoma?')
+    st.write('''
+    Glaucoma is a disease of the eye which causes the loss of nerve fibers, or _neuropathy_, that carry visual information from the eye to the brain causing a permanent, and irreversible loss of vision. The loss of nerve fibers occurs so slowly that it is generally asymptomatic until a significant amount of vision is lost. The only treatment currently available is to slow the progress of the disease further by reducing the pressure that the fluid naturally contained inside the eye exterts on the retina. This makes it critical that the disease is caught early and treatment begun before any loss of vision occurs.  
+    ''')
+    
+    st.subheader('Anatomy of the Eye')
+    col1, col2 = st.columns((4,2))
+    
+    with col1:
+        st.image('https://cdn.britannica.com/78/4078-050-828D676A/section-eye.jpg', caption='Fig 1. Anatomy of the human eye.')
+        st.image('../figures/retina_optic_nerve.jpg', caption='Fig 2. Cross-section of the retina, showing the optic nerve.')
+    with col2:
+        st.write('''
+        The eye is a specialized organ that uses a complex network of cells that not only convert light into electricity, but also perform preliminary processing on them before transmitting the signals to the brain. This layer of cells lies at the back of the eye, as shown in `Fig 1.` ([_source_]('https://cdn.britannica.com/78/4078-050-828D676A/section-eye.jpg')), and is known as the _retina_. 
+        
+        The retina is a highly complex structure consisting of multiple layers of specialized cells (`Fig 2.` [_source_]('https://www.kenhub.com/en/library/anatomy/the-optic-nerve')). It is built somewhat backwards, with light having to pass through all the layers to impinge on the cells on the bottom-most layer which then convert light energy to electricity. This electrical signal then makes it way back towards the surface of the retina layer-by-layer, getting processed for visual information at each step. The fully process signal is then transmitted to the brain through the optic nerve. Since the optic nerve has to pass through the entire thickness of the retina to reach the brain, this section of the retina cannot process any light signals, and comprises the well-known _blind-spot_ of the human visual field. This region of the retina is also known as the _optic disc_.  
+        ''')
+    
+    st.subheader('The Optic Disc and Glaucoma')
+    st.write('''
+    During an eye exam, the optic disc can be visualized clearly as a circular structure, with the nerve appearing as pinkish tissue. The shape and structure of the optic disc is used to gauge the health of the nerve tissue exiting the eye. A healthy optic disc consists of a broad rim which comprises the nerve fibers entering the optic nerve, and a small cup which is a shallow depression located centrally in the structure. As seen in `Fig 3.` ([source]('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4523637/')), nerve loss causes the rim to become narrower and the cup to become deeper and wider.
+    ''')
+    
+    col1, col2 = st.columns((2, 4))
+    with col1:
+        st.write('''
+        This also results in a noticeable change in the appearance of the optic disc when visually examined using an opthalmoscope or photograph. `Fig 4.` ([source]('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4523637/')) shows images of optic discs and the associated visual fields of three subjects with varying levels of nerve loss.  
+        ''')
+    with col2:
+        st.image('../figures/anatomy.png', caption='Fig 4. Changes in optic disc anatomy due to Glaucomatous loss of nerve fibers.')
+    
+    st.image('../figures/glaucoma vs healthy photos.jpg', caption='Fig 4. Optic disc appearance and visual field loss in healthy vs glaucamatous retinas.', use_column_width='always')
+
+# -------------------------------------------------------------------------------------------------------
+# if page is 'Data Analysis and Modeling' -------------------------------------------------------------------------------------
+if page == 'Data Analysis and Modeling':
+    with st.sidebar:
+        st.markdown("[Data](#data)", unsafe_allow_html=True)
+        st.markdown("[Model Description](#model-description)", unsafe_allow_html=True)
+        st.markdown("[Model Performance](#model-performance)", unsafe_allow_html=True)
+
     ## DATA -----------------------------------------------------------
-    st.header('Convolutional Neural Network for Image Classification')
+    st.header('Data')
     st.subheader('''
-    __Data:__
+    __Source__
     ''')
     
     st.image('../figures/sample_images.png', 
@@ -51,9 +99,43 @@ if page == 'About':
         st.image('../figures/size_distribution.png',
                 caption='Fig 3. Distribution of image heights in pixels of images of pathalogical (orange) and healthy (blue) optic discs. The dashed lines represent the median value in each distribution. All images were resized to 178 x 178 pixels before model training.',
                width=350)
-            
+    
+    col1, col2, col3 = st.columns((3,0.5,3))
+    
+    with col1:
+        avg = np.load('../data/avg_pixel_val_healthy.npy')
+        fig = px.imshow(avg.reshape(178, 178),color_continuous_scale='viridis', aspect='equal', zmin=0.4, zmax=0.8)
+        fig.update_layout(coloraxis=dict(colorbar=dict(len=0.5)),
+                         width=400,
+                         height=400,
+                         title_text='Healthy Optic Disc',
+                         title_y=0.9,
+                         title_x=0.48)
+        fig.update_xaxes(title='Pixel Position', title_font_size=15, tickfont_size=15, ticks='outside')
+        fig.update_yaxes(title='Pixel Position', title_font_size=15, tickfont_size=15, ticks='outside')
+        
+        # display plot
+        st.plotly_chart(fig, use_container_width=False)
+        st.caption('Average pixel value between 0 and 1 across 100 randomly sampled images of healthy optic discs.')
+    with col3:
+        avg = np.load('../data/avg_pixel_val_glaucoma.npy')
+        fig = px.imshow(avg.reshape(178, 178),color_continuous_scale='viridis', aspect='equal', zmin=0.4, zmax=0.8)
+        fig.update_layout(coloraxis=dict(colorbar=dict(len=0.5)),
+                         width=400,
+                         height=400,
+                         title_text='Pathalogical Optic Disc',
+                         title_y=0.9,
+                         title_x=0.48)
+        fig.update_xaxes(title='Pixel Position', title_font_size=15, tickfont_size=15, ticks='outside')
+        fig.update_yaxes(title='Pixel Position', title_font_size=15, tickfont_size=15, ticks='outside')
+        # display plot
+        st.plotly_chart(fig, use_container_width=False)
+        st.caption('Average pixel value between 0 and 1 across 100 randomly sampled images of pathalogical optic discs.')
+        
+        
+    
     ## MODEL DESCRIPTION -------------------------------------------------
-    st.subheader('''
+    st.header('''
     __Model description:__
     ''')
     st.image('../figures/model_03_auc93.png', 
@@ -61,7 +143,7 @@ if page == 'About':
             )
     
     ## MODEL PERFORMANCE ---------------------------------------------------
-    st.subheader('''
+    st.header('''
     __Model Performance:__
     ''')
     col1, col2, col3 = st.columns((4,0.1,2))
@@ -121,8 +203,6 @@ if page == 'About':
                       title_x=0.45,
                       plot_bgcolor='white',
                       template='plotly_white',
-                      # margin=dict(l=10, r=0, t=60, b=10),
-                      # paper_bgcolor="lightsteelblue",
                       legend=dict(font=dict(size=15)),
                       title_font=dict(size=18)
                      )
