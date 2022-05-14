@@ -1,7 +1,7 @@
 import numpy as np
 
 def find_y(val, fig):
-    threshold = 0.5 # threshold of predicted probability for classification
+    threshold = 0.589 # threshold of predicted probability for classification
     if val > threshold: # model would predict as 'Glaucoma'
         arr_0 = np.array(fig.data[0]['x'])
         ind_0 = abs(val - arr_0).argmin()
