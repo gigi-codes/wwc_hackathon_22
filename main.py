@@ -20,7 +20,7 @@ st.title('Predicting the Probability of Glaucoma Pathology Using a Convolutional
 
 # establish pages
 with st.sidebar:
-    st.image('../data/test_images/LA_left_eye.jpg', width=300)    
+    st.image('data/test_images/LA_left_eye.jpg', width=300)    
     page = st.sidebar.selectbox(
         'Select a page:',
         ('About Glaucoma',
@@ -54,7 +54,7 @@ if page=='About Glaucoma':
     
     with col1:
         st.image('https://cdn.britannica.com/78/4078-050-828D676A/section-eye.jpg', caption='Fig 1. Anatomy of the human eye.')
-        st.image('../figures/retina_optic_nerve.jpg', caption='Fig 2. Cross-section of the retina, showing the optic nerve.')
+        st.image('figures/retina_optic_nerve.jpg', caption='Fig 2. Cross-section of the retina, showing the optic nerve.')
     with col2:
         st.write('''
         The eye is a specialized organ that uses a complex network of cells that not only convert light into electricity, but also perform preliminary processing on them before transmitting the signals to the brain. This layer of cells lies at the back of the eye, as shown in `Fig 1.` ([_source_](https://cdn.britannica.com/78/4078-050-828D676A/section-eye.jpg)), and is known as the _retina_. 
@@ -74,7 +74,7 @@ if page=='About Glaucoma':
         This also results in a noticeable change in the appearance of the optic disc when visually examined using an opthalmoscope or photograph. `Fig 4.` ([source](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4523637/)).  
         ''')
     with col2:
-        st.image('../figures/anatomy.png', caption='Fig 3. Changes in optic disc anatomy due to Glaucomatous loss of nerve fibers.')
+        st.image('figures/anatomy.png', caption='Fig 3. Changes in optic disc anatomy due to Glaucomatous loss of nerve fibers.')
     
     st.image('https://www.glaucomaassociates.com/wp-content/uploads/2015/07/glaucoma-cupping.jpg', caption='Fig 4. Optic disc appearance and visual field loss in healthy vs glaucamatous retinas.', use_column_width='always')
     
@@ -89,13 +89,13 @@ if page=='About Glaucoma':
     ''')
     col1, col2, col3 = st.columns((3, 0.5, 3))
     with col1:
-        st.image('../figures/retina_smart_phone.jpg', caption='Fig 5. (a) Smartphone with adaptor for fundus photography. (b) Photograph of separate components of the adaptor. (caption from image source)', width = 300)
+        st.image('figures/retina_smart_phone.jpg', caption='Fig 5. (a) Smartphone with adaptor for fundus photography. (b) Photograph of separate components of the adaptor. (caption from image source)', width = 300)
     with col3: 
-        st.image('../figures/retina_smart_phone_ex.jpg', caption='Fig 6. (a) Optical layout of the wide-field fundus imaging device. (b) Photographic illustration of trans-palpebral illumination. (caption from image source)', width = 340)
+        st.image('figures/retina_smart_phone_ex.jpg', caption='Fig 6. (a) Optical layout of the wide-field fundus imaging device. (b) Photographic illustration of trans-palpebral illumination. (caption from image source)', width = 340)
     
     col1, col2, col3 = st.columns((0.5, 4, 0.5))
     with col2:
-        st.image('../figures/retina_imaging.jpg', caption='Fig 7. Example images taking using the trans-palpebral illumination technique with a smart phone.')
+        st.image('figures/retina_imaging.jpg', caption='Fig 7. Example images taking using the trans-palpebral illumination technique with a smart phone.')
     
     st.write('''
     Additionally, studies also exist that have focused their research on automating the detection of glaucoma pathology in images of the retina. [Diaz-Pinto et.al](https://biomedical-engineering-online.biomedcentral.com/articles/10.1186/s12938-019-0649-y#Sec2), in particular, use a convolutional neural network to assess images for glaucomatous loss of nerve tissue. 
@@ -104,7 +104,7 @@ if page=='About Glaucoma':
     ''')
     col1, col2, col3 = st.columns((1, 2, 1))
     with col2:
-        metrics = pd.read_csv('../data/metrics.csv')
+        metrics = pd.read_csv('data/metrics.csv')
         metrics = metrics.drop(columns='train set')
         metrics = metrics.rename(columns={'test set' : 'current model'})
         metrics.index = ['recall', 'accuracy', 'auc', 'precision']
@@ -136,8 +136,8 @@ if page == 'Data Analysis and Modeling':
     
     # display images
     
-    glaucoma_images = pd.read_csv('../data/glaucoma_images.csv')
-    healthy_images = pd.read_csv('../data/healthy_images.csv')
+    glaucoma_images = pd.read_csv('data/glaucoma_images.csv')
+    healthy_images = pd.read_csv('data/healthy_images.csv')
     
     fig, ax = plt.subplots(2, 5, figsize=(25,10))
     fig.suptitle('Images of Glaucomatous (top row) and Healthy (bottom row) Optic Disks', 
@@ -148,8 +148,8 @@ if page == 'Data Analysis and Modeling':
     plt.subplots_adjust(wspace=0.1,
                        hspace=0.05)
 
-    for i, f in enumerate(glaucoma_images['file_path']):
-        ax[0,i].imshow(Image.open(f))
+    for i, f in enumerate(glaucoma_images['file_name']):
+        ax[0,i].imshow(Image.open('data/Images/'+ f))
         ax[0,i].set_title(r"$\bf{Glaucoma: }$" + f"{Path(f).name[0:5]}", size=18)
         ax[0,i].tick_params(
             axis='both',      
@@ -159,8 +159,8 @@ if page == 'Data Analysis and Modeling':
             labelbottom=False,
             labelleft=False) 
 
-    for i, f in enumerate(healthy_images['file_path']):
-        ax[1,i].imshow(Image.open(f))
+    for i, f in enumerate(healthy_images['file_name']):
+        ax[1,i].imshow(Image.open('data/Images/'+ f))
         ax[1,i].set_title(r"$\bf{Healthy: }$" + f"{Path(f).name[0:5]}", size=18)
         ax[1,i].tick_params(
             axis='both',      
@@ -182,7 +182,7 @@ if page == 'Data Analysis and Modeling':
     col1, col2, col3 = st.columns((3,0.25,3))
     
     with col1:
-        pixels_dist_raw = pd.read_csv('../data/pixels_dist_raw.csv')
+        pixels_dist_raw = pd.read_csv('data/pixels_dist_raw.csv')
 
         fig = px.line(data_frame=pixels_dist_raw, x='Density', y='value', color='variable', color_discrete_sequence=['#1f77b4', '#ff7f0e'])
 
@@ -203,7 +203,7 @@ if page == 'Data Analysis and Modeling':
         st.plotly_chart(fig, use_column_width=True)
     
     with col3:
-        pixels_dist_normalized = pd.read_csv('../data/pixels_distribution_normalized.csv')
+        pixels_dist_normalized = pd.read_csv('data/pixels_distribution_normalized.csv')
 
         fig = px.line(data_frame=pixels_dist_normalized, x='Density', y='value', color='variable', color_discrete_sequence=['#1f77b4', '#ff7f0e'])
 
@@ -231,7 +231,7 @@ if page == 'Data Analysis and Modeling':
     col1, col2, col3 = st.columns((3,0.5,3))
     
     with col1:
-        avg = np.load('../data/avg_pixel_val_healthy.npy')
+        avg = np.load('data/avg_pixel_val_healthy.npy')
         fig = px.imshow(avg.reshape(178, 178),color_continuous_scale='viridis', aspect='equal', zmin=0.4, zmax=0.8)
         fig.update_layout(coloraxis=dict(colorbar=dict(len=0.5)),
                          width=400,
@@ -246,7 +246,7 @@ if page == 'Data Analysis and Modeling':
         st.plotly_chart(fig, use_container_width=False)
         
     with col3:
-        avg = np.load('../data/avg_pixel_val_glaucoma.npy')
+        avg = np.load('data/avg_pixel_val_glaucoma.npy')
         fig = px.imshow(avg.reshape(178, 178),color_continuous_scale='viridis', aspect='equal', zmin=0.4, zmax=0.8)
         fig.update_layout(coloraxis=dict(colorbar=dict(len=0.5)),
                          width=400,
@@ -264,7 +264,7 @@ if page == 'Data Analysis and Modeling':
     col1, col2, col3 = st.columns((3,1,3))
         
     with col1: 
-        sizes_df = pd.read_csv('../data/image_sizes.csv')
+        sizes_df = pd.read_csv('data/image_sizes.csv')
         hist_data = [sizes_df[sizes_df['label']=='Healthy']['h'].values, sizes_df[sizes_df['label']=='Glaucoma']['h'].values]
         group_labels = ['Healthy', 'Glaucoma']
         colors = ['#1f77b4', '#ff7f0e']
@@ -316,7 +316,7 @@ if page == 'Data Analysis and Modeling':
     
     '''
     )
-    st.image('../figures/model_03_auc93.png', 
+    st.image('figures/model_03_auc93.png', 
              caption='Fig 5. A schematic representation of the architecture of the CNN optimized for detecting Glaucoma in images of the optic disc.',
             )
     
@@ -331,7 +331,7 @@ if page == 'Data Analysis and Modeling':
     col1, col2, col3 = st.columns((4,0.1,2))
 
     with col1:
-        predictions_df = pd.read_csv('../data/test_predictions.csv')
+        predictions_df = pd.read_csv('data/test_predictions.csv')
 
         hist_data = [predictions_df[predictions_df['label']=='Healthy']['preds'], predictions_df[predictions_df['label']=='Glaucoma']['preds']]
         group_labels = ['Healthy', 'Glaucoma']
@@ -390,7 +390,7 @@ if page == 'Data Analysis and Modeling':
     '''
     
     # read dataframe with metric scores at different threshold values
-    df = pd.read_csv('../data/threshold_metrics.csv')
+    df = pd.read_csv('data/threshold_metrics.csv')
 
     fig = px.line(df, 
                   x='threshold', 
@@ -431,7 +431,7 @@ if page == 'Data Analysis and Modeling':
     
     with col1:
 
-        z=np.load('../data/confusion_matrix.npy')
+        z=np.load('data/confusion_matrix.npy')
         x=['Healthy', 'Glaucoma']
         y=['Healthy', 'Glaucoma']
         z_text = [[str(y) for y in x] for x in z]
@@ -453,7 +453,7 @@ if page == 'Data Analysis and Modeling':
     col1, col2, col3 = st.columns((2,3,2))
     
     with col2:
-        metrics = pd.read_csv('../data/metrics.csv')
+        metrics = pd.read_csv('data/metrics.csv')
         metrics = metrics.drop(columns=['Diaz-Pinto Model'])
         metrics.index = ['recall', 'accuracy', 'auc', 'precision']
         st.table(metrics)
@@ -477,7 +477,7 @@ if page == 'Make a prediction':
         st.image(image_data, width=500)
         
         # load saved model         
-        model = keras.models.load_model('../models/model_03_auc93/')
+        model = keras.models.load_model('models/model_03_auc93/')
         
         # make prediction on image using model
         prediction = model.predict(image_data)[0][0]
@@ -487,7 +487,7 @@ if page == 'Make a prediction':
         
         ## plot the position of this predicted probability value against the distribution of all probabilities generated from the test set
         
-        predictions_df = pd.read_csv('../data/test_predictions.csv')
+        predictions_df = pd.read_csv('data/test_predictions.csv')
 
         hist_data = [predictions_df[predictions_df['label']=='Healthy']['preds'], predictions_df[predictions_df['label']=='Glaucoma']['preds']]
         group_labels = ['Healthy', 'Glaucoma']
@@ -544,60 +544,11 @@ if page == 'Make a prediction':
        
         # display plot
         st.plotly_chart(fig, use_container_width=False)
-        st.caption('Distributions of predicted probability for healthy and galucomatous images in the test set.')
+        st.caption('Distributions of predicted probability for healthy and galucomatous images in the test set.The vertical dashed red line indicates the position of the predicted probability for the uploaded image.')
         
         
         
         
-        
-        
-        
-#         # read .csv with test set probabilities         
-#         predictions_df = pd.read_csv('../data/test_predictions.csv')
-        
-#         # create lists of glaucoma and healthy true labels from test set         
-#         glauc = predictions_df[predictions_df['label']=='Glaucoma']['preds']
-#         healthy = predictions_df[predictions_df['label']=='Healthy']['preds']
-#         var = [glauc, healthy]
-#         labels = ['Glaucoma', 'Healthy']
-        
-#         # generate figure using true labels
-#         fig = ff.create_distplot(var, 
-#                                  labels, 
-#                                  show_hist=False, 
-#                                  show_rug=False)
-#         # set size and title
-#         fig.update_layout(width=600, 
-#                           height=400,
-#                           title_text='Predicted Probabilities for Glaucomatous and Healthy Retinas',
-#                           title_y=0.92,
-#                           title_x=0.45,
-#                           xaxis_range=[-0.1, 1.1],
-#                           template='plotly_white',
-#                           legend=dict(font=dict(size=15)),
-#                           title_font=dict(size=18)
-#                          )
-                         
-#         # set axes labels
-#         fig.update_xaxes(title='Predicted Probability', title_font_size=18, tickfont_size=15, ticks='outside')
-#         fig.update_yaxes(title='Density in Distribution', title_font_size=18, tickfont_size=15, ticks='outside')
-        
-#         # add interactive hover
-#         fig.update_traces(mode="lines", hovertemplate=None)
-#         fig.update_layout(hovermode="x unified")
-        
-#         # add marker at position matching predicted probability of the uploaded image 
-#         fig.add_scatter(x=[round(prediction, 2)], 
-#                         y=[hp.find_y(round(prediction, 2),fig)], # use helper function 'find_y' to determine what the y coordinate for the marker should be
-#                         name='uploaded image', 
-#                         marker=dict(size=10, 
-#                                     line=dict(width=2),
-#                                     color='darkseagreen', 
-#                                     symbol="star-diamond"))
-        
-#         # display plot
-#         st.plotly_chart(fig, use_container_width=False)
-
 # -------------------------------------------------------------------------------------------------------
 # if page is 'About Glaucoma' -------------------------------------------------------------------------------------    
 if page=='References':
