@@ -1,0 +1,12 @@
+name: tensorflow
+channels:
+  - defaults
+dependencies:
+  - ipykernel
+  - tensorflow
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - plotly
+prefix: C:\ProgramData\Anaconda3\envs\tensorflow
