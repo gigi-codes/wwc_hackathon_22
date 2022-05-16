@@ -1,5 +1,5 @@
 # Glaucoma Detection Using Convolutional Neural Networks
-
+run streamlit directly [here](https://share.streamlit.io/lacharya/glaucoma_detection/main/main.py)
 
 ## Contents
 1. [**Introduction**](#introduction)
