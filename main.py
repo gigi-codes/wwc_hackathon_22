@@ -20,12 +20,18 @@ st.title('Predicting the Probability of Glaucoma Pathology Using a Convolutional
 
 # establish pages
 with st.sidebar:
+    st.write('''
+    __Lavanya Acharya, Ph.D__  
+    _Data Scientist and Avid Crocheter_
+    ''')
+    st.caption('Find me at [gitHub](https://github.com/LAcharya)')
     st.image('data/test_images/LA_left_eye.jpg', width=300)    
     page = st.sidebar.selectbox(
         'Select a page:',
         ('About Glaucoma',
          'Data Analysis and Modeling',
          'Make a prediction',
+         'Future Directions',
          'References')
     )
 
@@ -545,12 +551,27 @@ if page == 'Make a prediction':
         # display plot
         st.plotly_chart(fig, use_container_width=False)
         st.caption('Distributions of predicted probability for healthy and galucomatous images in the test set.The vertical dashed red line indicates the position of the predicted probability for the uploaded image.')
-        
+
+# -------------------------------------------------------------------------------------------------------
+# if page is 'Future Directions' -------------------------------------------------------------------------------------    
+if page=='Future Directions':
+    st.header('Future Directions')
+    st.markdown('''
+    - Train on preprocessed images
+        - Current model is trained on raw images with the only preprocessing being image resizing. This is because I wanted the neural network to do all the heavy lifting. 
+        - Considering the differences in healthy vs glaucomatous images becomes more prominent with pixel values are normalized, I would like to see if training on preprocessed images and performing the same preprocessing on any new images would improve performance. 
+    - Train a model to detect and classify hard and soft exudates caused by diabetic retinopathy
+        - Diabetic Retinopathy is a degeneration of the retina caused by diabetes.
+        - It causes patches of the retina to be damaged resulting in vision loss. 
+        - Damage can be caused due to two different root causes which result in the damaged areas to be visually distinct depending on the cause. 
+        - Identification and classification of this loss of nerve tissue in the retina during early stages is essential to prevent permanent vision loss in patients suffering from diabetes. 
+    ''')
+    
         
         
         
 # -------------------------------------------------------------------------------------------------------
-# if page is 'About Glaucoma' -------------------------------------------------------------------------------------    
+# if page is 'References' -------------------------------------------------------------------------------------    
 if page=='References':
     st.header('References')
     st.write('__Anatomy of the Human Eye__')
