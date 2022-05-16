@@ -6,7 +6,7 @@ run streamlit directly [here](https://share.streamlit.io/lacharya/glaucoma_detec
     - [What is Glaucoma?](#what-is-glaucoma?)
     - [The need for affordable imaging and screening](#problem-statement)
     - [Neural Network Model](#model)
-2.[ **How to use this repository**](#how-to)
+2. [ **How to use this repository**](#how-to)
     - [Repository Contents](#rep-contents)
     - [Instructions to run streamlit from local machine](#streamlit)
 3. [**References**](#ref)
