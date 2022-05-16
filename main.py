@@ -483,7 +483,7 @@ if page == 'Make a prediction':
         st.image(image_data, width=500)
         
         # load saved model         
-        model = keras.models.load_model('models/model_03_auc93/', compile=False)
+        model = keras.models.load_model('models/model_03_auc93.h5')
         
         # make prediction on image using model
         prediction = model.predict(image_data)[0][0]
