@@ -1,15 +1,12 @@
-# Diabetic Retinopathy Detection Using Neural Nets
-
-Lavanya and Giovanna are developing a mobile-based detection tool to aid in Diabetic Retinopathy detection. 
-
-We'll be training on [data from kaggle]  https://www.kaggle.com/datasets/amanneo/diabetic-retinopathy-resized-arranged) ad hopefully implementing [Yolo4-Tiny](https://models.roboflow.com/object-detection/yolov4-tiny-darknet)
+# Glaucoma Detection Using Convolutional Neural Networks
+run streamlit directly [here](https://share.streamlit.io/lacharya/glaucoma_detection/main/main.py)
 
 ## Contents
-<!-- 1. [**Introduction**](#introduction)
+1. [**Introduction**](#introduction)
     - [What is Glaucoma?](#what-is-glaucoma?)
     - [The need for affordable imaging and screening](#problem-statement)
     - [Neural Network Model](#model)
-2. [ **How to use this repository**](#how-to)
+2.[ **How to use this repository**](#how-to)
     - [Repository Contents](#rep-contents)
     - [Instructions to run streamlit from local machine](#streamlit)
 3. [**References**](#ref)
@@ -102,4 +99,4 @@ In this repository you will find:
 4. CNNs for Automated Glaucoma Assessment
     - Publication by [Diaz-Pinto et. al](https://biomedical-engineering-online.biomedcentral.com/articles/10.1186/s12938-019-0649-y#Sec2)
 5. CNN Visualization
-    - [VisualKeras](https://github.com/paulgavrikov/visualkeras) library by Paul Gavrikov. -->
+    - [VisualKeras](https://github.com/paulgavrikov/visualkeras) library by Paul Gavrikov.
